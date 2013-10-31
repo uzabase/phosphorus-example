@@ -22,11 +22,13 @@ class FormTest extends SeleniumSpecification { def is = s2"""
 		「hogefoo」と表示されている								${e3}
 		「2」のラジオボタンをクリックする							${s4}
 		チェックボックスの全てにチェックを付ける					${s5}
+		上部に表示されている文字列は「仕様するロケール」である		${e5}
 """
 
 	lazy val stringText = TextBox(id("stringProperty"))
 	lazy val radio = RadioChoice("numberRadioChoice")
 	lazy val checkbox = CheckBox("numbersCheckGroup")
+	lazy val localeElement = Element("//select[@name='localeSelect']/..")
 
 	def s1 = Step(Anchor("forminput").click)
 	def e1 = stringText must beDisplayed
@@ -41,4 +43,5 @@ class FormTest extends SeleniumSpecification { def is = s2"""
 		checkbox.choice("2")
 		checkbox.choice("3")
 	}
+	def e5 = localeElement.text must contain("使用するロケール")
 }
